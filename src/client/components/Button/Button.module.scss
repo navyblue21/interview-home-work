@@ -1,0 +1,24 @@
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+}
+
+// .secondary {
+//   background: none;
+//   border: none;
+//   color: #212529;
+
+//   &:not(:disabled):not(.disabled):active,
+//   &:focus {
+//     color: #212529;
+//     background-color: #dae0e5;
+//     border: none;
+//   }
+
+//   &:hover {
+//     color: #212529;
+//     background: #e2e6ea;
+//   }
+// }
