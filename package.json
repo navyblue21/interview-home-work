@@ -63,6 +63,7 @@
     "graphql-playground-middleware-express": "^1.7.12",
     "graphql-playground-react": "^1.7.20",
     "history": "^4.10.1",
+    "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.15",
     "mongoose": "^5.9.4",
     "react-datepicker": "^2.14.1",

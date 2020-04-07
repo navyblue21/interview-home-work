@@ -7,10 +7,7 @@ const cors = require("cors");
 
 const configs = require("../../webpack.dev.config");
 const db = require("./database");
-// const schema = require("./data/schema").default;
-
-const { userController } = require("./controllers");
-const { postController } = require("./controllers");
+const { userRoute, postRoute } = require("./routes");
 
 db.on("error", console.error.bind(console, "connection error"));
 db.once("open", () => {
@@ -18,10 +15,11 @@ db.once("open", () => {
 });
 
 const server = express();
-
 const compiler = webpack(configs);
-const PORT = process.env.PORT || 3000;
-const STATIC_PATH = process.env.STATIC_PATH || "/public";
+const { env } = process;
+
+const PORT = env.PORT || 3000;
+const STATIC_PATH = env.STATIC_PATH || "/public";
 // const HTML_DIR = join(compiler.outputPath, "index.html");
 
 // server.use(favicon(resolve(__dirname, "../public/favicon.ico")));
@@ -52,10 +50,8 @@ server.use(express.json());
 //     return next(err);
 //   });
 // });
-server.post("/users/authenticate", userController.getUserByCredentials);
-server.post("/users/register", userController.createUser);
-server.get("/users/:id?", userController.getUserById);
-server.get("/posts/:id?", postController.getPostById);
+server.use("/user", userRoute);
+server.use("/post", postRoute);
 
 server.listen(PORT, () => {
   console.info(`Server started on http://localhost:${PORT}`);
