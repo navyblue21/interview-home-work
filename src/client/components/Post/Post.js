@@ -4,13 +4,8 @@ import PropTypes from "prop-types";
 import s from "./Post.module.scss";
 import ExpandText from "../ExpandText";
 
-function Post({ post, isExpand }) {
+function Post({ post }) {
   const { owner, title, content, tags } = post;
-  const Content = isExpand ? (
-    <ExpandText>{content}</ExpandText>
-  ) : (
-    <p>{content}</p>
-  );
 
   return (
     <div className={s.post}>
@@ -21,7 +16,7 @@ function Post({ post, isExpand }) {
           <span key={tag}>{`#${tag}`}</span>
         ))}
       </h6>
-      {Content}
+      <ExpandText>{content}</ExpandText>
     </div>
   );
 }
