@@ -108,11 +108,19 @@ class Login extends Component {
 }
 
 Login.propTypes = {
-  login: PropTypes.func.isRequired,
-  register: PropTypes.func.isRequired,
-  alert: PropTypes.objectOf(PropTypes.string).isRequired,
-  isLoggingIn: PropTypes.bool.isRequired,
-  isRegistering: PropTypes.bool.isRequired,
+  login: PropTypes.func,
+  register: PropTypes.func,
+  alert: PropTypes.objectOf(PropTypes.string),
+  isLoggingIn: PropTypes.bool,
+  isRegistering: PropTypes.bool,
+};
+
+Login.defaultProps = {
+  login: () => {},
+  register: () => {},
+  alert: {},
+  isLoggingIn: false,
+  isRegistering: false,
 };
 
 const { login, register } = userActions;
