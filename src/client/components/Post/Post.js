@@ -1,23 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
-import ReactTextCollapse from "react-text-collapse";
 
 import s from "./Post.module.scss";
-
-const options = {
-  collapse: false,
-  collapseText: "... show more",
-  expandText: "show less",
-  minHeight: 100,
-  maxHeight: 250,
-};
+import ExpandText from "../ExpandText";
 
 function Post({ post, isExpand }) {
   const { owner, title, content, tags } = post;
   const Content = isExpand ? (
-    <ReactTextCollapse options={options}>
-      <p>{content}</p>
-    </ReactTextCollapse>
+    <ExpandText>{content}</ExpandText>
   ) : (
     <p>{content}</p>
   );
@@ -37,9 +27,12 @@ function Post({ post, isExpand }) {
 }
 
 Post.propTypes = {
-  post: PropTypes.objectOf(
-    PropTypes.oneOfType([PropTypes.string, PropTypes.array])
-  ).isRequired,
+  post: PropTypes.shape({
+    owner: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    title: PropTypes.string,
+    content: PropTypes.string,
+    tags: PropTypes.arrayOf(PropTypes.string),
+  }).isRequired,
   isExpand: PropTypes.bool,
 };
 
