@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React, { useRef, useState } from "react";
 import PropTypes from "prop-types";
 import classnames from "classnames";
@@ -23,16 +22,17 @@ function ExpandText({ children }) {
   };
 
   return (
-    <p
+    <div
       className={classnames(s.paragraph, { [s.expanded]: isExpanded })}
       tabIndex="-1"
       onKeyDown={() => {}}
       onClick={toggleExpand}
       ref={paragraphRef}
+      role="button"
     >
-      {children}
-      {isExpanded === false && "See more..."}
-    </p>
+      <div className={s.expandColumn} />
+      <p>{children}</p>
+    </div>
   );
 }
 
