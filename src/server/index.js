@@ -50,8 +50,8 @@ server.use(express.json());
 //     return next(err);
 //   });
 // });
-server.use("/user", userRoute);
-server.use("/post", postRoute);
+server.use("/users", userRoute);
+server.use("/posts", postRoute);
 
 server.listen(PORT, () => {
   console.info(`Server started on http://localhost:${PORT}`);
