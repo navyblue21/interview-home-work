@@ -1,6 +1,6 @@
 import { Action } from "redux";
 import { Task } from "redux-saga";
-import { take, fork, cancel, call } from "redux-saga/effects";
+import { take, fork, cancel, call, put } from "redux-saga/effects";
 
 import { userService } from "../services";
 import { userConstants } from "../constants";
@@ -24,6 +24,7 @@ function* watchLogin() {
     if (action.type === LOGOUT) {
       yield cancel(loginTask);
     }
+    yield put({ type: LOGIN_FAILURE, message: loginTask.result() });
     yield call(logout);
   }
 }

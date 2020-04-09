@@ -13,7 +13,7 @@ const User = new Schema(
     password: String,
     name: String,
     dob: Date,
-    token: [{ token: { type: String, require: true } }],
+    tokenList: [{ token: { type: String, require: true } }],
   },
   { timestamps: { createdAt: "created_at", updatedAt: "updated_at" } }
 );
@@ -37,7 +37,9 @@ User.pre("save", function autoIncrementId(next) {
 
 User.methods.generateAuthToken = async function generateAuthToken() {
   const token = jwt.sign({ id: this.id }, JWT_KEY);
-  this.token = this.token.concat({ token });
+  const { tokenList } = this;
+
+  this.tokenList = tokenList ? this.tokenList.concat({ token }) : [{ token }];
 
   await this.save();
 

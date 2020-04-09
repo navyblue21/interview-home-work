@@ -8,6 +8,7 @@ const cors = require("cors");
 const configs = require("../../webpack.dev.config");
 const db = require("./database");
 const { userRoute, postRoute } = require("./routes");
+const { authMiddleware } = require("./middlewares");
 
 db.on("error", console.error.bind(console, "connection error"));
 db.once("open", () => {
@@ -51,7 +52,7 @@ server.use(express.json());
 //   });
 // });
 server.use("/users", userRoute);
-server.use("/posts", postRoute);
+server.use("/posts", authMiddleware, postRoute);
 
 server.listen(PORT, () => {
   console.info(`Server started on http://localhost:${PORT}`);

@@ -1,8 +1,8 @@
 import { Action } from "redux";
 import { userConstants } from "../constants";
 
-const userInfo = JSON.parse(sessionStorage.getItem("user"));
-const initialState = userInfo ? { isLoggedIn: true, userInfo } : {};
+const token = sessionStorage.getItem("user");
+const initialState = token ? { isLoggedIn: true, user: token } : {};
 
 const authentication = (state = initialState, action: Action) => {
   const { user } = action;

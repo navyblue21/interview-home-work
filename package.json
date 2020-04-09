@@ -69,7 +69,6 @@
     "react-datepicker": "^2.14.1",
     "react-motion": "^0.5.2",
     "react-redux": "5.0.6",
-    "react-text-collapse": "^0.5.2",
     "reactstrap": "^8.2.0",
     "redux": "^3.7.2",
     "redux-persist": "^6.0.0",

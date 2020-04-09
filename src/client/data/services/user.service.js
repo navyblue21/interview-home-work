@@ -1,12 +1,23 @@
 import axios, { AxiosResponse } from "axios";
 
-const logout = () => {
+const logout = async () => {
   // remove user from local storage to log user out
-  sessionStorage.removeItem("user");
+  const URL = "/users/logout";
+  const user = localStorage.getItem("user");
+  const token = user && user.token;
+
+  console.info(token);
+
+  try {
+    await axios.delete(URL, { data: { token } });
+    localStorage.removeItem("token");
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 const storeSession = token => {
-  sessionStorage.setItem("user", token);
+  localStorage.setItem("token", JSON.stringify(token));
 };
 
 const handleResponse = (response: AxiosResponse) => {

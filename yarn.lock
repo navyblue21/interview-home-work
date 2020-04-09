@@ -9730,13 +9730,6 @@ react-test-renderer@^16.0.0-0:
     react-is "^16.8.6"
     scheduler "^0.19.0"
 
-react-text-collapse@^0.5.2:
-  version "0.5.2"
-  resolved "https://registry.yarnpkg.com/react-text-collapse/-/react-text-collapse-0.5.2.tgz#caf48593899b565f03acb7832c7de0efeec89bde"
-  integrity sha512-CNPyXGUWfSZzuCgc9TExeOopEXgam3cVV0/avmcSXguTkdul3NOAEs3/DucweU2edApNPYfN3PlQEzkkbC7XpA==
-  dependencies:
-    prop-types "^15.5.10"
-
 react-transition-group@^2.2.1, react-transition-group@^2.3.1:
   version "2.9.0"
   resolved "https://registry.yarnpkg.com/react-transition-group/-/react-transition-group-2.9.0.tgz#df9cdb025796211151a436c69a8f3b97b5b07c8d"

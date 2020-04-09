@@ -1,4 +1,4 @@
-const userController = require("./User");
-const postController = require("./Post");
+const userController = require("./user.controller");
+const postController = require("./post.controller");
 
 module.exports = { userController, postController };

@@ -5,19 +5,25 @@ const routes = [
   {
     path: "/login",
     action: () => {
-      const isLoggedIn = JSON.parse(sessionStorage.getItem("user"));
-      const result = isLoggedIn ? { redirect: "/" } : Login();
+      const isLoggedIn = localStorage.getItem("token");
 
-      return result;
+      if (isLoggedIn) {
+        return { redirect: "/" };
+      }
+
+      return Login();
     },
   },
   {
     path: "",
     action: ({ next }) => {
-      const isLoggedIn = JSON.parse(sessionStorage.getItem("user"));
-      const result = isLoggedIn ? next() : { redirect: "/login" };
+      const isLoggedIn = localStorage.getItem("token");
 
-      return result;
+      if (isLoggedIn) {
+        return next();
+      }
+
+      return { redirect: "/login" };
     },
     children: [{ path: "", action: Home }],
   },
