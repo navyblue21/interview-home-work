@@ -5,7 +5,7 @@ import { getPostSaga } from "./post.saga";
 
 function* watchGetPosts() {
   const { GETPOST_REQUEST } = postConstants;
-  const { id } = take(GETPOST_REQUEST);
+  const { id } = yield take(GETPOST_REQUEST);
   yield call(getPostSaga, id);
 }
 

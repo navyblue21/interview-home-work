@@ -17,13 +17,14 @@ function authentication(actionCreator: Object, serviceMethod: Function) {
       yield delay(500);
       yield put(alertActions.success("Successfully!"));
 
+      yield delay(300);
       history.push("");
 
       return response;
     } catch (error) {
-      const errorMessages = error.response.data.error;
+      const errorMessages = error?.response?.data?.error;
 
-      yield put(failure(error));
+      yield put(failure(errorMessages));
       yield put(alertActions.error(errorMessages));
 
       return undefined;
@@ -39,11 +40,11 @@ const {
 } = userConstants;
 const loginActionCreator = {
   success: user => ({ type: LOGIN_SUCCESS, user }),
-  failure: user => ({ type: LOGIN_FAILURE, user }),
+  failure: error => ({ type: LOGIN_FAILURE, message: error }),
 };
 const registerActionCreator = {
   success: user => ({ type: REGISTER_SUCCESS, user }),
-  failure: user => ({ type: REGISTER_FAILURE, user }),
+  failure: error => ({ type: REGISTER_FAILURE, message: error }),
 };
 const { login, register } = userService;
 

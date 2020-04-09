@@ -1,14 +1,12 @@
 import axios, { AxiosResponse } from "axios";
 
-const { stringify } = JSON;
-
 const logout = () => {
   // remove user from local storage to log user out
   sessionStorage.removeItem("user");
 };
 
-const storeSession = user => {
-  sessionStorage.setItem("user", stringify(user));
+const storeSession = token => {
+  sessionStorage.setItem("user", token);
 };
 
 const handleResponse = (response: AxiosResponse) => {
@@ -25,16 +23,16 @@ const handleResponse = (response: AxiosResponse) => {
 };
 
 const login = async ({ username, password }) => {
-  const data = { username, password };
+  const payload = { username, password };
   const URL = `/users/authenticate`;
-  const user = await axios.post(URL, data).then(handleResponse);
-  const isUserAvailable = !!user;
+  const { data, success } = await axios.post(URL, payload).then(handleResponse);
+  const { user, token } = data;
 
-  if (isUserAvailable === false) {
+  if (success === false) {
     throw new Error("No user found!");
   }
 
-  storeSession(user.data);
+  storeSession(token);
 
   return user;
 };
