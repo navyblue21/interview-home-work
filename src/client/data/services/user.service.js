@@ -1,23 +1,19 @@
 import axios, { AxiosResponse } from "axios";
 
+import utilities from "../../helpers/utilities";
+
+const { getToken, storeSession } = utilities;
+
 const logout = async () => {
-  // remove user from local storage to log user out
   const URL = "/users/logout";
-  const user = localStorage.getItem("user");
-  const token = user && user.token;
-
-  console.info(token);
-
+  const token = getToken();
+  // remove user from local storage to log user out
   try {
-    await axios.delete(URL, { data: { token } });
+    await axios.delete(URL, { headers: { Authorization: `Bearer ${token}` } });
     localStorage.removeItem("token");
   } catch (error) {
     console.error(error);
   }
-};
-
-const storeSession = token => {
-  localStorage.setItem("token", JSON.stringify(token));
 };
 
 const handleResponse = (response: AxiosResponse) => {
@@ -57,8 +53,11 @@ const register = async ({ username, password, name, dob }) => {
 };
 
 const getUser = async (id = "") => {
+  const token = getToken();
   const URL = `/users/${id}`;
-  const result = await (await axios.get(URL)).data.data;
+  const result = await (await axios.get(URL, {
+    headers: { Authorization: `Bearer ${token}` },
+  })).data.data;
 
   return result;
 };

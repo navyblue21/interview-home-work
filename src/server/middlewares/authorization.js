@@ -4,24 +4,25 @@ const User = require("../models/User");
 const JWT_TOKEN = process.env.JWT_KEY || "thisisasecretkey";
 
 const auth = async (req, res, next) => {
-  const { token } = req.body;
-  const data = jwt.verify(token, JWT_TOKEN);
-
   try {
-    const user = await User.findOne({ id: data.id, "tokens.token": token });
+    const token = req.header("Authorization").replace("Bearer ", "");
+    const data = jwt.verify(token, JWT_TOKEN);
 
-    if (!user) {
-      throw new Error("Invalid token.");
-    }
+    return User.findOne({ id: data.id, "tokenList.token": token }).exec(
+      (err, user) => {
+        if (!!user === false) {
+          return next(new Error("Invalid token."));
+        }
 
-    req.user = user;
-    req.token = token;
+        req.user = user;
+        req.token = token;
 
-    return next();
+        return next();
+      }
+    );
   } catch (error) {
-    return res
-      .status(401)
-      .send({ error: "Not authorized to access this resource" });
+    console.error(error);
+    return res.status(401).json({ error: error.errmsg });
   }
 };
 

@@ -12,7 +12,15 @@ const createUser = async (req, res) => {
   }
 
   try {
+    counter.findOneAndUpdate(
+      { name: "user" },
+      { $inc: { seq: 1 } },
+      (error, counterDocument) => {
+        user.id = counterDocument.seq + 1;
+      }
+    );
     await user.save();
+
     return res.status(201).json({ success: true, user });
   } catch (error) {
     // If cannot create user, decrease id by 1
@@ -25,6 +33,35 @@ const createUser = async (req, res) => {
     );
     return res.status(400).json({ success: false, error: error.errmsg });
   }
+};
+
+const getUserByCredentials = (req, res) => {
+  const userInfo = req.body;
+  const { username, password } = userInfo;
+
+  User.findOne(
+    { username, password },
+    "id username name dob",
+    async (error, user) => {
+      if (!!user === false) {
+        return res
+          .status(401)
+          .json({ success: false, error: "Invalid login credentials!" });
+      }
+
+      if (error) {
+        return res.status(400).json({ success: false, error: error.errmsg });
+      }
+
+      try {
+        const token = await user.generateAuthToken();
+
+        return res.status(200).json({ success: true, data: { user, token } });
+      } catch (tokenError) {
+        return res.status(500).json({ success: false, error: tokenError });
+      }
+    }
+  );
 };
 
 const getUserById = async (req, res) => {
@@ -65,35 +102,6 @@ const getUserById = async (req, res) => {
   }
 };
 
-const getUserByCredentials = (req, res) => {
-  const userInfo = req.body;
-  const { username, password } = userInfo;
-
-  User.findOne(
-    { username, password },
-    "id username name dob",
-    async (error, user) => {
-      if (!!user === false) {
-        return res
-          .status(401)
-          .json({ success: false, error: "Invalid login credentials!" });
-      }
-
-      if (error) {
-        return res.status(400).json({ success: false, error: error.errmsg });
-      }
-
-      try {
-        const token = await user.generateAuthToken();
-
-        return res.status(200).json({ success: true, data: { user, token } });
-      } catch (tokenError) {
-        return res.status(500).json({ success: false, error: tokenError });
-      }
-    }
-  );
-};
-
 const removeUserToken = async (req: Request, res: Response) => {
   try {
     const { tokenList } = req.user;
@@ -102,7 +110,7 @@ const removeUserToken = async (req: Request, res: Response) => {
 
     return res.status(200).send();
   } catch (error) {
-    return res.status(500).send(error);
+    return res.status(500).json(error);
   }
 };
 
