@@ -22,13 +22,11 @@ class Home extends Component {
               const ownerName = (matchedOwner && matchedOwner.name) || "";
 
               return (
-                <Fragment key={id}>
-                  {index !== 0 && <hr />}
-                  <Post
-                    className={s.post}
-                    post={{ owner: ownerName || owner, title, content, tags }}
-                  />
-                </Fragment>
+                <Post
+                  key={id}
+                  className={s.post}
+                  post={{ owner: ownerName || owner, title, content, tags }}
+                />
               );
             })}
           </Col>

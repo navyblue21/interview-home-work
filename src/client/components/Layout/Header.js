@@ -15,7 +15,7 @@ function Header({ logout }) {
   };
 
   return (
-    <div className={classnames("shadow", s.container)}>
+    <div className={classnames("globalShadow", s.container)}>
       <div>LOGO</div>
       <div>
         <h1>BLOGS</h1>

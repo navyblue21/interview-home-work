@@ -10,14 +10,14 @@ function Post({ post, className }) {
   const { owner, title, content, tags } = post;
 
   return (
-    <div className={classnames("shadow", s.post, className)}>
+    <div className={classnames("globalShadow", s.post, className)}>
       <h3>
         <strong>{title}</strong>
       </h3>
       <h5>{`Author: ${owner}`}</h5>
       <h6>
         {tags.map(tag => (
-          <span key={tag}>{`#${tag}`}</span>
+          <span key={tag}>{`#${tag} `}</span>
         ))}
       </h6>
       <ExpandText>{content}</ExpandText>
