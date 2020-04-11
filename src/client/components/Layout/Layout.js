@@ -6,12 +6,14 @@ import Header from "./Header";
 
 export default function Layout({ children }) {
   return (
-    <Container>
+    <>
       <Header />
-      <Row>
-        <Col>{children}</Col>
-      </Row>
-    </Container>
+      <Container>
+        <Row>
+          <Col>{children}</Col>
+        </Row>
+      </Container>
+    </>
   );
 }
 

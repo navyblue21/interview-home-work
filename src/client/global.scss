@@ -16,4 +16,12 @@ body {
   .alertDanger {
     color: rgb(146, 12, 12);
   }
+
+  .shadow {
+    box-shadow: 0px 0px 40px -20px rgba(0, 0, 0, 0.5);
+  }
+
+  hr {
+    width: 40vw;
+  }
 }

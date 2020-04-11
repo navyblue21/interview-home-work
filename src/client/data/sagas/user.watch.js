@@ -29,10 +29,10 @@ function* watchLogin() {
   }
 }
 
-function* watchLogout() {
-  yield take(LOGOUT);
-  yield call(logout);
-}
+// function* watchLogout() {
+//   yield take(LOGOUT);
+//   yield call(logout);
+// }
 
 function* watchRegister() {
   while (true) {
@@ -46,4 +46,4 @@ function* watchGetUser() {
   yield call(getUserSaga, id);
 }
 
-export { watchLogin, watchRegister, watchLogout, watchGetUser };
+export { watchLogin, watchRegister, /* watchLogout, */ watchGetUser };

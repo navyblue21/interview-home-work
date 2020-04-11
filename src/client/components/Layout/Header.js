@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Col } from "reactstrap";
+import classnames from "classnames";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
@@ -15,19 +15,15 @@ function Header({ logout }) {
   };
 
   return (
-    <Row>
-      <Col>
-        <div className={s.container}>
-          <div>LOGO</div>
-          <div>
-            <h1>BLOGS</h1>
-          </div>
-          <div>
-            <Button onClick={handleLogout} text="Log Out" />
-          </div>
-        </div>
-      </Col>
-    </Row>
+    <div className={classnames("shadow", s.container)}>
+      <div>LOGO</div>
+      <div>
+        <h1>BLOGS</h1>
+      </div>
+      <div>
+        <Button onClick={handleLogout} text="Log Out" />
+      </div>
+    </div>
   );
 }
 

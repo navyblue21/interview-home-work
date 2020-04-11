@@ -1,10 +1,12 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Col, Row } from "reactstrap";
 
 import Layout from "../../components/Layout";
 import Post from "../../components/Post";
+
+import s from "./Home.module.scss";
 
 class Home extends Component {
   render() {
@@ -15,15 +17,18 @@ class Home extends Component {
         <Row>
           <Col md={2} />
           <Col xs={12} md={8}>
-            {postList.map(({ id, owner, title, content, tags }) => {
+            {postList.map(({ id, owner, title, content, tags }, index) => {
               const matchedOwner = userList.find(user => user.id === owner);
               const ownerName = (matchedOwner && matchedOwner.name) || "";
 
               return (
-                <Post
-                  key={id}
-                  post={{ owner: ownerName || owner, title, content, tags }}
-                />
+                <Fragment key={id}>
+                  {index !== 0 && <hr />}
+                  <Post
+                    className={s.post}
+                    post={{ owner: ownerName || owner, title, content, tags }}
+                  />
+                </Fragment>
               );
             })}
           </Col>

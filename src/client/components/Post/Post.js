@@ -1,16 +1,20 @@
 import React from "react";
 import PropTypes from "prop-types";
+import classnames from "classnames";
 
-import s from "./Post.module.scss";
 import ExpandText from "../ExpandText";
 
-function Post({ post }) {
+import s from "./Post.module.scss";
+
+function Post({ post, className }) {
   const { owner, title, content, tags } = post;
 
   return (
-    <div className={s.post}>
-      <h5>{`Name: ${owner}`}</h5>
-      <h3>{title}</h3>
+    <div className={classnames("shadow", s.post, className)}>
+      <h3>
+        <strong>{title}</strong>
+      </h3>
+      <h5>{`Author: ${owner}`}</h5>
       <h6>
         {tags.map(tag => (
           <span key={tag}>{`#${tag}`}</span>
@@ -28,11 +32,11 @@ Post.propTypes = {
     content: PropTypes.string,
     tags: PropTypes.arrayOf(PropTypes.string),
   }).isRequired,
-  isExpand: PropTypes.bool,
+  className: PropTypes.string,
 };
 
 Post.defaultProps = {
-  isExpand: false,
+  className: "",
 };
 
 export default Post;
