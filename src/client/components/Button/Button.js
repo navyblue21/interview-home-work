@@ -1,11 +1,11 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import PropTypes from "prop-types";
 import classnames from "classnames";
 import { Button } from "reactstrap";
 
 import s from "./Button.module.scss";
 
-const CustomButton = props => {
+const CustomButton = forwardRef((props, ref) => {
   const {
     className,
     children,
@@ -25,11 +25,12 @@ const CustomButton = props => {
       onClick={onClick}
       value={value}
       color={customStyle}
+      ref={ref}
     >
       {children || text}
     </Button>
   );
-};
+});
 
 CustomButton.propTypes = {
   id: PropTypes.string,
@@ -43,12 +44,12 @@ CustomButton.propTypes = {
 };
 
 CustomButton.defaultProps = {
-  id: "",
+  id: undefined,
   children: null,
-  text: "",
-  className: "",
+  text: undefined,
+  className: undefined,
   onClick: () => {},
-  value: "",
+  value: undefined,
   customStyle: "primary",
   type: "button",
 };
